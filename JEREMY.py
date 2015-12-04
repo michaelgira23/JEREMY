@@ -56,7 +56,8 @@ def command(message, arguments):
         message.Chat.SendMessage('-=[ Jeremy\'s list of commands ]=-\n' 
         + commandPrefix + 'help - List of commands\n'
         + commandPrefix + 'ping - Pong!\n' 
-        + commandPrefix + 'kys - Nothing\n' 
+        + commandPrefix + 'kys - Kills Jeremy D:\n' 
+        + commandPrefix + 'kms - Jeremy kills you D:\n'
         + commandPrefix + 'dice - Rolls a die\n'
         + commandPrefix + 'privilege - Checks your privilege\n'
         + commandPrefix + 'shortlink - Shortens a link')
@@ -66,6 +67,9 @@ def command(message, arguments):
 
     elif arguments[0] == 'kys':
         message.Chat.SendMessage('/me dies')
+
+    elif arguments[0] == 'kms':
+        message.Chat.SendMessage('/me kills %s' % message.FromDisplayName)
 
     elif arguments[0] == 'wikipedia' or arguments[0] == 'wiki':
 		# duplicate list to get rest of args
