@@ -1,6 +1,7 @@
 import Skype4Py
 import urllib2
 import json
+import html2text
 
 #
 # J ust
@@ -54,12 +55,20 @@ def command(message, arguments):
         restOfArguments = arguments
         del restOfArguments[0]
         wikipediaPage = '%20'.join(restOfArguments)
-        
-        opener = urllib2.build_opener()
-        opener.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
-        infile = opener.open('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage)
-        query = json.loads(infile.read())
-        message.Chat.SendMessage(query)
+
+        try:
+            opener = urllib2.build_opener()
+            opener.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
+            infile = opener.open('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage)
+            query = json.loads(infile.read())
+
+            snippet = query['query']['search'][0]['snippet']
+            snippetText = html2text.html2text(snippet)
+            
+            message.Chat.SendMessage(snippetText)
+            
+        except:
+            message.Chat.SendMessage('There was an error with that request!')
     
     else:
         message.Chat.SendMessage('Command not recognized. Please type in /help for list of commands')
