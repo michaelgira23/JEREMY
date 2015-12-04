@@ -56,7 +56,8 @@ def command(message, arguments):
         + commandPrefix + 'help - List of commands\n'
         + commandPrefix + 'ping - Pong!\n' 
         + commandPrefix + 'kys - Nothing\n' 
-        + commandPrefix + 'dice - Rolls a die')
+        + commandPrefix + 'dice - Rolls a die\n'
+        + commandPrefix + 'checkprivilege - Checks your privilege')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -107,8 +108,10 @@ def command(message, arguments):
         elif len(arguments) == 2:
             result = random.randint(1, int(arguments[1]))
             message.Chat.SendMessage('You rolled a %s!' % result)
-        else:
-            message.Chat.SendMessage('Error: Too many parameters for \'$dice!\'')
+            
+    elif arguments[0] == 'checkprivilege':
+        random.seed()
+        message.Chat.SendMessage('Your privilege is %s.' % random.uniform(1, 10))
     
     else:
         message.Chat.SendMessage('Command not recognized. Please type in $help for list of commands')
