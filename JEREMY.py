@@ -69,7 +69,7 @@ def command(message, arguments):
         message.Chat.SendMessage('/me dies')
 
     elif arguments[0] == 'kms':
-        message.Chat.SendMessage('/me kills %s' % message.FromDisplayName)
+        message.Chat.SendMessage('/me kills *%s*' % message.FromDisplayName)
 
     elif arguments[0] == 'wikipedia' or arguments[0] == 'wiki':
 		# duplicate list to get rest of args
