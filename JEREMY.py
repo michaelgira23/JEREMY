@@ -111,7 +111,7 @@ def command(message, arguments):
             
     elif arguments[0] == 'privilege':
         random.seed()
-        message.Chat.SendMessage('Your privilege is %s.' % random.uniform(1, 10))
+        message.Chat.SendMessage('Your privilege is %s.' % random.uniform(0, 10))
     
     else:
         message.Chat.SendMessage('Command not recognized. Please type in $help for list of commands')
