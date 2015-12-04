@@ -1,1 +1,0 @@
-gotta love skype bots, amirite

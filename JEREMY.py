@@ -59,7 +59,7 @@ def command(message, arguments):
         message.Chat.SendMessage('/me dies')
 
     elif arguments[0] == 'wikipedia' or arguments[0] == 'wiki':
-
+		# duplicate list to get rest of args
         restOfArguments = arguments
         del restOfArguments[0]
         wikipediaPage = '%20'.join(restOfArguments)
