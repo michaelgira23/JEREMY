@@ -117,7 +117,7 @@ def command(message, arguments):
     
     elif arguments[0] == 'shortlink':
         try:
-            r = requests.get('https://hec.su/api?url=%s' %s arguments[1])
+            r = requests.get('https://hec.su/api?url=%s' % arguments[1])
             response = r.json()
             message.Chat.SendMessage('Shortened %s into %s.' % (response['long'], response['short']))
         except Exception, error:
