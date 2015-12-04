@@ -3,6 +3,7 @@ import urllib2
 import json
 import html2text
 import time
+import random
 
 #
 # J ust
@@ -50,7 +51,12 @@ def messageRecieved(message, status):
 
 def command(message, arguments):
     if arguments[0] == 'help':
-        message.Chat.SendMessage('-=[ Jeremy\'s list of commands ]=-\n' + commandPrefix + 'help - List of commands\n' + commandPrefix + 'kys - Nothing')
+        # thankfully, the linebreaks don't matter here
+        message.Chat.SendMessage('-=[ Jeremy\'s list of commands ]=-\n' 
+        + commandPrefix + 'help - List of commands\n'
+        + commandPrefix + 'ping - Pong!\n' 
+        + commandPrefix + 'kys - Nothing\n' 
+        + commandPrefix + 'dice - Rolls a die')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -93,8 +99,19 @@ def command(message, arguments):
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! With URL: ' + wikipediaURL + '\n(' + str(error) + ')')
     
+    elif arguments[0] == 'dice':
+        random.seed()
+        if len(arguments) <= 1:
+            result = random.randint(1, 6)
+            message.Chat.SendMessage('You rolled a %s!' % result)
+        elif len(arguments) = 2:
+            result = random.randint(1, arguments[1])
+            message.Chat.SendMessage('You rolled a %s!' % result)
+        else:
+            message.Chat.SendMessage('Error: Too many parameters for \'$dice!\'')
+    
     else:
-        message.Chat.SendMessage('Command not recognized. Please type in /help for list of commands')
+        message.Chat.SendMessage('Command not recognized. Please type in $help for list of commands')
 
 def passiveMessages(message):
     messageContents = message.Body.lower()
@@ -108,7 +125,7 @@ def passiveMessages(message):
 
     elif messageContents == 'highfive, jeremy!':
         time.sleep(0.5)
-        message.Chat.SendMessage('*Highfives ' + fromDisplayName + ' back')
+        message.Chat.SendMessage('/me highfives ' + fromDisplayName + ' back')
 
 skype = Skype4Py.Skype()
 skype.Attach()
