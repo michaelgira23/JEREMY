@@ -4,6 +4,7 @@ import json
 import html2text
 import time
 import random
+import requests
 
 #
 # J ust
@@ -57,7 +58,8 @@ def command(message, arguments):
         + commandPrefix + 'ping - Pong!\n' 
         + commandPrefix + 'kys - Nothing\n' 
         + commandPrefix + 'dice - Rolls a die\n'
-        + commandPrefix + 'privilege - Checks your privilege')
+        + commandPrefix + 'privilege - Checks your privilege\n'
+        + commandPrefix + 'shortlink - Shortens a link')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -112,6 +114,14 @@ def command(message, arguments):
     elif arguments[0] == 'privilege':
         random.seed()
         message.Chat.SendMessage('Your privilege is %s.' % random.uniform(0, 10))
+    
+    elif arguments[0] == 'shortlink':
+        try:
+            r = requests.get('https://hec.su/api?url=%s' %s arguments[1])
+            response = r.json()
+            message.Chat.SendMessage('Shortened %s into %s.' % (response['long'], response['short']))
+        except Exception, error:
+            message.Chat.SendMessage('There was an error: %s' % error)
     
     else:
         message.Chat.SendMessage('Command not recognized. Please type in $help for list of commands')
