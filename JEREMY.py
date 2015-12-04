@@ -57,7 +57,7 @@ def command(message, arguments):
         + commandPrefix + 'ping - Pong!\n' 
         + commandPrefix + 'kys - Nothing\n' 
         + commandPrefix + 'dice - Rolls a die\n'
-        + commandPrefix + 'checkprivilege - Checks your privilege')
+        + commandPrefix + 'privilege - Checks your privilege')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -109,7 +109,7 @@ def command(message, arguments):
             result = random.randint(1, int(arguments[1]))
             message.Chat.SendMessage('You rolled a %s!' % result)
             
-    elif arguments[0] == 'checkprivilege':
+    elif arguments[0] == 'privilege':
         random.seed()
         message.Chat.SendMessage('Your privilege is %s.' % random.uniform(1, 10))
     
