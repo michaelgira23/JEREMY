@@ -1,4 +1,4 @@
-from .Skype4PyMaster.Skype4Py import Skype4Py
+import Skype4Py
 import urllib2
 import json
 
@@ -25,7 +25,9 @@ def messageRecieved(message, status):
         # Actual message, see if command
 
         if messageContents[0] == commandPrefix:
-            # It's a command! message.Chat.SendMessage('pong')
+            
+            # It's a command!
+            
             commandComponents = messageContents[1:].split(' ')
             command(message, commandComponents)
 
