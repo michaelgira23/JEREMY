@@ -2,6 +2,7 @@ import Skype4Py
 import urllib2
 import json
 import html2text
+import time
 
 #
 # J ust
@@ -15,7 +16,7 @@ import html2text
 commandPrefix = '$'
 
 def messageRecieved(message, status):
-    if status == 'SENT' or status == 'RECEIVED':
+    if status == 'RECEIVED' or status == 'SENT':
         messageContents = message.Body
         fromChat = message.Chat
         fromUser = message.FromHandle
@@ -40,6 +41,13 @@ def messageRecieved(message, status):
             commandComponents = messageContents[len('Ok Jeremy, '):].split(' ')
             command(message, commandComponents)
 
+        elif messageContents.lower().startswith('hey jeremy,'):
+            commandComponents = messageContents[len('Hey Jeremy, '):].split(' ')
+            command(message, commandComponents)
+
+        else:
+            passiveMessages(message)
+
 def command(message, arguments):
     if arguments[0] == 'help':
         message.Chat.SendMessage('-=[ Jeremy\'s list of commands ]=-\n' + commandPrefix + 'help - List of commands\n' + commandPrefix + 'kys - Nothing')
@@ -57,21 +65,50 @@ def command(message, arguments):
         wikipediaPage = '%20'.join(restOfArguments)
 
         try:
-            opener = urllib2.build_opener()
-            opener.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
-            infile = opener.open('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage)
-            query = json.loads(infile.read())
-
-            snippet = query['query']['search'][0]['snippet']
-            snippetText = html2text.html2text(snippet)
             
-            message.Chat.SendMessage(snippetText)
+            # Search on Wikipedia for closest topic
             
-        except:
-            message.Chat.SendMessage('There was an error with that request!')
+            queryTopic = urllib2.build_opener()
+            queryTopic.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
+            queryRaw = queryTopic.open('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage)
+            queryJSON = json.loads(queryRaw.read())
+            topic = queryJSON['query']['search'][0]['title'];
+            
+            # Get actual Wikipedia page
+            #wikipediaURL = str('https://en.wikipedia.org/wiki/' + topic.replace(" ", "_"))
+            wikipediaURL = 'https://en.wikipedia.org/wiki/John_Cena'
+            print type(wikipediaURL)
+            queryArticle = urllib2.build_opener()
+            #queryArticle.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
+            articleHTML = queryArticle.open(wikipediaURL)
+            article = html2text.html2text(articleHTML)
+            
+            # Parse Data
+            
+            #snippet = query['query']['search'][0]['snippet']
+            #snippetText = html2text.html2text(snippet)
+            
+            message.Chat.SendMessage(article)
+            
+        except Exception, error:
+            message.Chat.SendMessage('There was an error with that request! With URL: ' + wikipediaURL + '\n(' + str(error) + ')')
     
     else:
         message.Chat.SendMessage('Command not recognized. Please type in /help for list of commands')
+
+def passiveMessages(message):
+    messageContents = message.Body.lower()
+    fromChat = message.Chat
+    fromUser = message.FromHandle
+    fromDisplayName = message.FromDisplayName
+
+    if 'poopyface' in messageContents:
+        time.sleep(0.5)
+        message.Chat.SendMessage('Hey watch your language, ' + fromDisplayName)
+
+    elif messageContents == 'highfive, jeremy!':
+        time.sleep(0.5)
+        message.Chat.SendMessage('*Highfives ' + fromDisplayName + ' back')
 
 skype = Skype4Py.Skype()
 skype.Attach()
