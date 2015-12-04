@@ -103,10 +103,10 @@ def command(message, arguments):
         random.seed()
         if len(arguments) <= 1:
             result = random.randint(1, 6)
-            message.Chat.SendMessage('You rolled a %s!' % result)
+            message.Chat.SendMessage('You rolled a %s!' % str(result))
         elif len(arguments) == 2:
             result = random.randint(1, arguments[1])
-            message.Chat.SendMessage('You rolled a %s!' % result)
+            message.Chat.SendMessage('You rolled a %s!' % str(result))
         else:
             message.Chat.SendMessage('Error: Too many parameters for \'$dice!\'')
     
