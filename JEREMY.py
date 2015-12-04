@@ -104,7 +104,7 @@ def command(message, arguments):
         if len(arguments) <= 1:
             result = random.randint(1, 6)
             message.Chat.SendMessage('You rolled a %s!' % result)
-        elif len(arguments) = 2:
+        elif len(arguments) == 2:
             result = random.randint(1, arguments[1])
             message.Chat.SendMessage('You rolled a %s!' % result)
         else:
