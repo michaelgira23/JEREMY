@@ -97,7 +97,7 @@ def command(message, arguments):
             
             
             
-            message.Chat.SendMessage(queryArticle)
+            message.Chat.SendMessage(queryArticle.text)
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! With URL: ' + wikipediaURL + '\n(' + str(error) + ')')
