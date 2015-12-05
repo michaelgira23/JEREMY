@@ -83,27 +83,21 @@ def command(message, arguments):
             
             # Search on Wikipedia for closest topic
             
-            queryTopic = urllib2.build_opener()
-            queryTopic.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
-            queryRaw = queryTopic.open('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage)
-            queryJSON = json.loads(queryRaw.read())
+            headers = {'User-agent': 'michaelgira23@gmail.com'}
+            
+            queryRaw = requests.get('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage, headers=headers)
+            queryJSON = queryRaw.json()
             topic = queryJSON['query']['search'][0]['title'];
             
             # Get actual Wikipedia page
-            #wikipediaURL = str('https://en.wikipedia.org/wiki/' + topic.replace(" ", "_"))
-            wikipediaURL = 'https://en.wikipedia.org/wiki/John_Cena'
-            print type(wikipediaURL)
-            queryArticle = urllib2.build_opener()
-            #queryArticle.addheaders = [('User-agent', 'michaelgira23@gmail.com')]
-            articleHTML = queryArticle.open(wikipediaURL)
-            article = html2text.html2text(articleHTML)
-            
+            wikipediaURL = 'https://en.wikipedia.org/wiki/%s' % topic.replace(" ", "_")
+            queryArticle = requests.get(wikipediaURL)
+                
             # Parse Data
             
-            #snippet = query['query']['search'][0]['snippet']
-            #snippetText = html2text.html2text(snippet)
             
-            message.Chat.SendMessage(article)
+            
+            message.Chat.SendMessage(queryArticle)
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! With URL: ' + wikipediaURL + '\n(' + str(error) + ')')
