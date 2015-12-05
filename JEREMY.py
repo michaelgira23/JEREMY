@@ -136,7 +136,7 @@ def command(message, arguments):
         message.Chat.SendMessage('Ballin\'!')
     
     else:
-        message.Chat.SendMessage('Command not recognized. Please type in $help for list of commands')
+        message.Chat.SendMessage('Command not recognized. Please type in ' + commandPrefix + 'help for list of commands.')
 
 def passiveMessages(message):
     messageContents = message.Body.lower()
