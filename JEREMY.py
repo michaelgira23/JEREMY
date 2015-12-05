@@ -88,7 +88,7 @@ def command(message, arguments):
             queryRaw = requests.get('https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&utf8=&srlimit=1&srsearch=' + wikipediaPage, headers=headers)
             queryJSON = queryRaw.json()
             topic = queryJSON['query']['search'][0]['title'];
-            
+                
             # Get actual Wikipedia page
             wikipediaURL = 'https://en.wikipedia.org/wiki/%s' % topic.replace(" ", "_")
             queryArticle = requests.get(wikipediaURL)
@@ -100,7 +100,7 @@ def command(message, arguments):
             message.Chat.SendMessage(queryArticle.text)
             
         except Exception, error:
-            message.Chat.SendMessage('There was an error with that request! With URL: ' + wikipediaURL + '\n(' + str(error) + ')')
+            message.Chat.SendMessage('There was an error with that request! \n(' + str(error) + ')')
     
     elif arguments[0] == 'dice':
         random.seed()
