@@ -95,9 +95,9 @@ def command(message, arguments):
                 
             # Parse Data
             
+            snippetText = html2text.html2text(queryArticle.text)
             
-            
-            message.Chat.SendMessage(queryArticle.text)
+            message.Chat.SendMessage(snippetText)
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! \n(' + str(error) + ')')
