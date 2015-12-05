@@ -61,7 +61,8 @@ def command(message, arguments):
         + commandPrefix + 'dice - Rolls a die\n'
         + commandPrefix + 'privilege - Checks your privilege\n'
         + commandPrefix + 'shortlink - Shortens a link\n'
-        + commandPrefix + 'cashmoney - $$$$$$$$')
+        + commandPrefix + 'cashmoney - $$$$$$$$\n'
+        + commandPrefix + 'baller - Get dunked on')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -130,6 +131,9 @@ def command(message, arguments):
     
     elif arguments[0] == 'cashmoney':
         message.Chat.SendMessage('Cash money millionaire \nCash money millionaire \nCash money cash money boats and goats \nCash money millionaire \nCash money millionaire \nCash money cash money boats and goats')
+    
+    elif arguments[0] == 'baller':
+        message.Chat.SendMessage('Ballin\'!')
     
     else:
         message.Chat.SendMessage('Command not recognized. Please type in $help for list of commands')
