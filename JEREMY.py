@@ -116,13 +116,16 @@ def command(message, arguments):
         message.Chat.SendMessage('Your privilege is %s.' % random.uniform(0, 10))
     
     elif arguments[0] == 'shortlink':
-        try:
-            r = requests.get('https://hec.su/api?url=%s' % arguments[1])
-            response = r.json()
-            message.Chat.SendMessage('Shortened %s into %s.' % (response['long'], response['short']))
-        except Exception, error:
-            message.Chat.SendMessage('There was an error: %s' % error)
-    
+        if len(arguments) <= 1:
+            message.Chat.SendMessage('You need a link as the second parameter.')
+        else:
+            try:
+                r = requests.get('https://hec.su/api?url=%s' % arguments[1])
+                response = r.json()
+                message.Chat.SendMessage('Shortened %s into %s.' % (response['long'], response['short']))
+            except Exception, error:
+                message.Chat.SendMessage('There was an error: %s' % error)
+        
     elif arguments[0] == 'cashmoney':
         message.Chat.SendMessage('Cash money millionaire \nCash money millionaire \nCash money cash money boats and goats \nCash money millionaire \nCash money millionaire \nCash money cash money boats and goats')
     
