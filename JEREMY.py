@@ -5,6 +5,7 @@ import html2text
 import time
 import random
 import requests
+import urlparse
 
 #
 # J ust
@@ -119,12 +120,20 @@ def command(message, arguments):
         if len(arguments) <= 1:
             message.Chat.SendMessage('You need a link as the second parameter.')
         else:
-            try:
-                r = requests.get('https://hec.su/api?url=%s' % arguments[1])
-                response = r.json()
-                message.Chat.SendMessage('Shortened %s into %s.' % (response['long'], response['short']))
-            except Exception, error:
-                message.Chat.SendMessage('There was an error: %s' % error)
+            if 'youtube.com' in arguments[1]:
+                try:
+                    parsedUrl = urlparse.parse_qs(urlparse.urlparse(url).query)
+                    videoId = parsedUrl['v']
+                    message.Chat.SendMessage('Shortened %s into %s.' % (arguments[1], videoId))
+                except Exception, error:
+                    message.Chat.SendMessage('There was an error: %s' % error)
+            else:    
+                try:
+                    r = requests.get('https://hec.su/api?url=%s' % arguments[1])
+                    response = r.json()
+                    message.Chat.SendMessage('Shortened %s into %s.' % (response['long'], response['short']))
+                except Exception, error:
+                    message.Chat.SendMessage('There was an error: %s' % error)
         
     elif arguments[0] == 'cashmoney':
         message.Chat.SendMessage('Cash money millionaire \nCash money millionaire \nCash money cash money boats and goats \nCash money millionaire \nCash money millionaire \nCash money cash money boats and goats')
