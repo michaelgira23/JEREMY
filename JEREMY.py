@@ -1,10 +1,9 @@
 import Skype4Py
-import urllib2
 import json
-import html2text
 import time
 import random
 import requests
+import bs4
 
 #
 # J ust
@@ -95,7 +94,9 @@ def command(message, arguments):
                 
             # Parse Data
             
-            snippetText = html2text.html2text(queryArticle.text)
+            soup = bs4.BeautifulSoup(queryArticle)
+            
+            snippetText = soup.get_text()
             
             message.Chat.SendMessage(snippetText)
             
