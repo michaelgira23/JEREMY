@@ -94,7 +94,7 @@ def command(message, arguments):
                 
             # Parse Data
             
-            soup = BeautifulSoup(queryArticle, "lxml")
+            soup = BeautifulSoup(queryArticle.text, "lxml")
             
             snippetText = soup.get_text()
             
