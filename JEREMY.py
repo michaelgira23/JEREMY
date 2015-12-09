@@ -105,7 +105,9 @@ def command(message, arguments):
             
             doubleTrimmedText = "\n".join(trimmedText.split("\n\n\n"))
             
-            message.Chat.SendMessage(doubleTrimmedText)
+            tripleTrimmedText = "\n".join(doubleTrimmedText.split("\n\n\n\n"))
+            
+            message.Chat.SendMessage(tripleTrimmedText)
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! \n(' + str(error) + ')')
