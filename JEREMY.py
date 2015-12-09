@@ -3,7 +3,7 @@ import json
 import time
 import random
 import requests
-import bs4
+from bs4 import BeautifulSoup
 
 #
 # J ust
@@ -94,11 +94,11 @@ def command(message, arguments):
                 
             # Parse Data
             
-            soup = bs4.BeautifulSoup(queryArticle)
+            soup = BeautifulSoup(queryArticle, "lxml")
             
             snippetText = soup.get_text()
             
-            message.Chat.SendMessage(str(snippetText))
+            message.Chat.SendMessage(snippetText)
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! \n(' + str(error) + ')')
