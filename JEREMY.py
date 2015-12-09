@@ -98,10 +98,12 @@ def command(message, arguments):
             
             [s.extract() for s in soup('script')]
             [s.extract() for s in soup('style')]
-            
+                        
             snippetText = soup.get_text()
             
-            message.Chat.SendMessage(snippetText)
+            trimmedText = "\n".join(snippetText.split("\n\n"))
+            
+            message.Chat.SendMessage(trimmedText)
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! \n(' + str(error) + ')')
