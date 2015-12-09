@@ -97,6 +97,7 @@ def command(message, arguments):
             soup = BeautifulSoup(queryArticle.text, "lxml")
             
             [s.extract() for s in soup('script')]
+            [s.extract() for s in soup('style')]
             
             snippetText = soup.get_text()
             
