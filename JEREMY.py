@@ -98,7 +98,7 @@ def command(message, arguments):
             
             snippetText = soup.get_text()
             
-            message.Chat.SendMessage(atr(snippetText))
+            message.Chat.SendMessage(str(snippetText))
             
         except Exception, error:
             message.Chat.SendMessage('There was an error with that request! \n(' + str(error) + ')')
