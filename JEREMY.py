@@ -65,7 +65,7 @@ def command(message, arguments):
         + commandPrefix + 'privilege - Checks your privilege\n'
         + commandPrefix + 'shortlink - Shortens a link\n'
         + commandPrefix + 'cashmoney - $$$$$$$$\n'
-        + commandPrefix + 'baller - Get dunked on'
+        + commandPrefix + 'baller - Get dunked on\n'
         + commandPrefix + 'reboot - Reboot Jeremy (he is still a robot)')
 
     elif arguments[0] == 'ping':
