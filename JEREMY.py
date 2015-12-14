@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import Skype4Py
 import json
 import time
