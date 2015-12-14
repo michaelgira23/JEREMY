@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 # Y ou
 #
 
+global commandPrefix
 commandPrefix = '$'
 
 def messageRecieved(message, status):
@@ -58,6 +59,7 @@ def command(message, arguments):
         + commandPrefix + 'kys - Kills Jeremy D:\n' 
         + commandPrefix + 'kms - Jeremy kills you D:\n'
         + commandPrefix + 'dice - Rolls a die\n'
+        + commandPrefix + 'setprefix - Changes command prefix\n'
         + commandPrefix + 'privilege - Checks your privilege\n'
         + commandPrefix + 'shortlink - Shortens a link\n'
         + commandPrefix + 'cashmoney - $$$$$$$$\n'
@@ -142,6 +144,14 @@ def command(message, arguments):
     elif arguments[0] == 'baller':
         message.Chat.SendMessage('Ballin\'!')
     
+    elif arguments[0] == 'setprefix':
+        if len(arguments) <= 1:
+            message.Chat.SendMessage('You need a prefix as the second parameter.')
+        else:
+            global commandPrefix
+            message.Chat.SendMessage('Changed the command prefix from "%s" to "%s".' % (commandPrefix, arguments[1]))
+            commandPrefix = arguments[1]
+            
     else:
         message.Chat.SendMessage('Command not recognized. Please type in ' + commandPrefix + 'help for list of commands.')
 
