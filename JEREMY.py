@@ -19,7 +19,8 @@ from bs4 import BeautifulSoup
 
 # detects for reboot
 if len(sys.argv) == 2:
-    sys.argv[1].Chat.SendMessage("Reboot successful.")
+    message = eval(repr(sys.argv[1]))
+    message.Chat.SendMessage("Reboot successful.")
 
 global commandPrefix
 commandPrefix = '$'
@@ -163,8 +164,8 @@ def command(message, arguments):
     elif arguments[0] == 'reboot':
         message.Chat.SendMessage('Attempting reboot...')
         try:
-            message.Chat.SendMessage("Message object as string: %s" % message.__str__)
-            restartArgs = [message.__str__]
+            message.Chat.SendMessage("Message object as string: %s" % repr(message))
+            restartArgs = [repr(message)]
             os.execv(__file__, restartArgs)
         except Exception, error:
             message.Chat.SendMessage('There was an error: %s' % error)
