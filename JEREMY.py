@@ -3,6 +3,8 @@ import json
 import time
 import random
 import requests
+import sys
+import os
 from bs4 import BeautifulSoup
 
 #
@@ -63,7 +65,8 @@ def command(message, arguments):
         + commandPrefix + 'privilege - Checks your privilege\n'
         + commandPrefix + 'shortlink - Shortens a link\n'
         + commandPrefix + 'cashmoney - $$$$$$$$\n'
-        + commandPrefix + 'baller - Get dunked on')
+        + commandPrefix + 'baller - Get dunked on'
+        + commandPrefix + 'reboot - Reboot Jeremy (he is still a robot)')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -151,6 +154,13 @@ def command(message, arguments):
             global commandPrefix
             message.Chat.SendMessage('Changed the command prefix from "%s" to "%s".' % (commandPrefix, arguments[1]))
             commandPrefix = arguments[1]
+         
+    elif arguments[0] == 'reboot':
+        message.Chat.SendMessage('Attempting reboot...')
+        try:
+            os.execv(__file__, sys.argv)
+        except Exception, error:
+            message.Chat.SendMessage('There was an error: %s' % error)
             
     else:
         message.Chat.SendMessage('Command not recognized. Please type in ' + commandPrefix + 'help for list of commands.')
