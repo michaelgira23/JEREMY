@@ -164,8 +164,8 @@ def command(message, arguments):
     elif arguments[0] == 'reboot':
         message.Chat.SendMessage('Attempting reboot...')
         try:
-            message.Chat.SendMessage("Message object as string: %s" % json.dumps(message))
-            sys.argv.append(json.dumps(message))
+            message.Chat.SendMessage("Message object as string: %s" % json.dumps(message.__dict__))
+            sys.argv.append(json.dumps(message.__dict__))
             os.execv(__file__, sys.argv)
         except Exception, error:
             message.Chat.SendMessage('There was an error: %s' % error)
