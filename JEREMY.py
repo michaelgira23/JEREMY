@@ -164,8 +164,8 @@ def command(message, arguments):
     elif arguments[0] == 'reboot':
         message.Chat.SendMessage('Attempting reboot...')
         try:
-            message.Chat.SendMessage("Message object as string: %s" % jsonpickle.pickler(message))
-            sys.argv.append(jsonpickle.pickler(message))
+            message.Chat.SendMessage("Message object as string: %s" % jsonpickle.encode(message))
+            sys.argv.append(jsonpickle.decode(message))
             os.execv(__file__, sys.argv)
         except Exception, error:
             message.Chat.SendMessage('There was an error: %s' % error)
