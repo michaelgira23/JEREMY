@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import Skype4Py
-import json
 import time
 import random
 import requests
 import sys
 import os
+import jsonpickle
 from bs4 import BeautifulSoup
 
 #
@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 
 # detects for reboot
 if len(sys.argv) == 2:
-    messageObj = json.loads(sys.argv[1])
+    messageObj = jsonpickle.unpickler(sys.argv[1])
     messageObj.Chat.SendMessage("Reboot successful.")
 
 global commandPrefix
@@ -164,8 +164,8 @@ def command(message, arguments):
     elif arguments[0] == 'reboot':
         message.Chat.SendMessage('Attempting reboot...')
         try:
-            message.Chat.SendMessage("Message object as string: %s" % json.dumps(message.__dict__))
-            sys.argv.append(json.dumps(message.__dict__))
+            message.Chat.SendMessage("Message object as string: %s" % jsonpickle.pickler(message))
+            sys.argv.append(jsonpickle.pickler(message))
             os.execv(__file__, sys.argv)
         except Exception, error:
             message.Chat.SendMessage('There was an error: %s' % error)
