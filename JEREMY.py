@@ -5,7 +5,6 @@ import random
 import requests
 import sys
 import os
-import jsonpickle
 from bs4 import BeautifulSoup
 
 #
@@ -16,11 +15,6 @@ from bs4 import BeautifulSoup
 # M ichael for
 # Y ou
 #
-
-# detects for reboot
-if len(sys.argv) == 2:
-    messageObj = jsonpickle.unpickler(sys.argv[1])
-    messageObj.Chat.SendMessage("Reboot successful.")
 
 global commandPrefix
 commandPrefix = '$'
@@ -164,8 +158,6 @@ def command(message, arguments):
     elif arguments[0] == 'reboot':
         message.Chat.SendMessage('Attempting reboot...')
         try:
-            message.Chat.SendMessage("Message object as string: %s" % jsonpickle.encode(message))
-            sys.argv.append(jsonpickle.decode(message))
             os.execv(__file__, sys.argv)
         except Exception, error:
             message.Chat.SendMessage('There was an error: %s' % error)

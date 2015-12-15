@@ -1,6 +1,0 @@
-nose
-coverage
-feedparser
-numpy
-pymongo
-enum34
