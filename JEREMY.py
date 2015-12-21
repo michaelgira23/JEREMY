@@ -49,11 +49,11 @@ def messageRecieved(message, status):
             commandComponents = messageContents[len('Hey Jeremy, '):].split(' ')
             command(message, commandComponents)
         
-        elif messageContents.startswith('sudo apt-get install '):
-            quoteInstallQuote(message, messageContents[len('sudo apt-get install'):]);
+        elif messageContents.lower().startswith('sudo apt-get install '):
+            quoteInstallQuote(message, messageContents[len('sudo apt-get install '):])
             
-        elif messageContents.startswith('npm install '):
-            quoteInstallQuote(message, messageContents[len('npm install'):]);
+        elif messageContents.lower().startswith('npm install '):
+            quoteInstallQuote(message, messageContents[len('npm install '):])
         
         else:
             passiveMessages(message)
@@ -194,11 +194,11 @@ while True:
     pass
 
 def quoteInstallQuote(message, package):
-    time.sleep(0.1);
-    message.Chat.SendMessage('Reading package lists... Done');
-    time.sleep(1);
-    message.Chat.SendMessage('Building dependency tree');
-    time.sleep(0.5);
-    message.Chat.SendMessage('Reading state information... Done');
-    time.sleep(0.3);
-    message.Chat.SendMessage('Succuessfully installed package ' + package + '!');
+    time.sleep(0.1)
+    message.Chat.SendMessage('Reading package lists... Done')
+    time.sleep(1)
+    message.Chat.SendMessage('Building dependency tree')
+    time.sleep(0.5)
+    message.Chat.SendMessage('Reading state information... Done')
+    time.sleep(0.3)
+    message.Chat.SendMessage('Succuessfully installed package ' + package + '!')
