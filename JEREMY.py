@@ -185,14 +185,6 @@ def passiveMessages(message):
         time.sleep(0.5)
         message.Chat.SendMessage('/me highfives ' + fromDisplayName + ' back')
 
-skype = Skype4Py.Skype()
-skype.Attach()
-print 'Using bot as account:', skype.CurrentUser.FullName
-
-skype.OnMessageStatus = messageRecieved
-while True:
-    pass
-
 def quoteInstallQuote(message, package):
     time.sleep(0.1)
     message.Chat.SendMessage('Reading package lists... Done')
@@ -202,3 +194,11 @@ def quoteInstallQuote(message, package):
     message.Chat.SendMessage('Reading state information... Done')
     time.sleep(0.3)
     message.Chat.SendMessage('Succuessfully installed package ' + package + '!')
+
+skype = Skype4Py.Skype()
+skype.Attach()
+print 'Using bot as account:', skype.CurrentUser.FullName
+
+skype.OnMessageStatus = messageRecieved
+while True:
+    pass
