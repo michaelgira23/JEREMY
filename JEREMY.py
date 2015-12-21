@@ -50,10 +50,13 @@ def messageRecieved(message, status):
             command(message, commandComponents)
         
         elif messageContents.lower().startswith('sudo apt-get install '):
-            quoteInstallQuote(message, messageContents[len('sudo apt-get install '):])
+            quoteInstallQuote(message, messageContents[len('sudo apt-get install '):], True)
             
         elif messageContents.lower().startswith('npm install '):
-            quoteInstallQuote(message, messageContents[len('npm install '):])
+            quoteInstallQuote(message, messageContents[len('npm install '):], True)
+        
+        elif messageContents.lower().startswith('apt-get install '):
+            quoteInstallQuote(message, messageContents[len('apt-get install '):], False)
         
         else:
             passiveMessages(message)
@@ -185,15 +188,21 @@ def passiveMessages(message):
         time.sleep(0.5)
         message.Chat.SendMessage('/me highfives ' + fromDisplayName + ' back')
 
-def quoteInstallQuote(message, package):
-    time.sleep(0.1)
-    message.Chat.SendMessage('Reading package lists... Done')
-    time.sleep(1)
-    message.Chat.SendMessage('Building dependency tree')
-    time.sleep(0.5)
-    message.Chat.SendMessage('Reading state information... Done')
-    time.sleep(0.3)
-    message.Chat.SendMessage('Succuessfully installed package ' + package + '!')
+def quoteInstallQuote(message, package, permission):
+    if permission:
+        time.sleep(0.1)
+        message.Chat.SendMessage('Reading package lists... Done')
+        time.sleep(1)
+        message.Chat.SendMessage('Building dependency tree')
+        time.sleep(0.5)
+        message.Chat.SendMessage('Reading state information... Done')
+        time.sleep(0.3)
+        message.Chat.SendMessage('Succuessfully installed package ' + package + '!')
+    else:
+        time.sleep(0.1)
+        message.Chat.SendMessage('E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied)')
+        time.sleep(0.2)
+        message.Chat.SendMessage('E: Unable to lock the administration directory (/var/lib/dpkg/), are you root?')
 
 skype = Skype4Py.Skype()
 skype.Attach()
