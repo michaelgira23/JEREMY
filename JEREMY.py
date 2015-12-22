@@ -176,7 +176,7 @@ def command(message, arguments):
     elif arguments[0] == 'translate':
         translator = Translator('JEREMY-skype-bot', 'iEvV4ZWgMjAM45Jub+WHXHHI9CZ4QJspduxTrFOXrkc=')
         if arguments[1] == 'get-langs':
-            message.Chat.SendMessage(', '.join(translator.get_languages().sort()))
+            message.Chat.SendMessage(', '.join(translator.get_languages()))
         elif arguments[1] == 'detect':
             langOut = arguments[2]
             restOfMessage = arguments
