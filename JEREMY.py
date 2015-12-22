@@ -6,6 +6,7 @@ import requests
 import sys
 import os
 from bs4 import BeautifulSoup
+from microsofttranslator import Translator
 
 #
 # J ust
@@ -75,7 +76,8 @@ def command(message, arguments):
         + commandPrefix + 'shortlink - Shortens a link\n'
         + commandPrefix + 'cashmoney - $$$$$$$$\n'
         + commandPrefix + 'baller - Get dunked on\n'
-        + commandPrefix + 'reboot - Reboot Jeremy (he is still a robot)')
+        + commandPrefix + 'reboot - Reboot Jeremy (he is still a robot)\n'
+        + commandPrefix + 'translate - Translate from language to language')
 
     elif arguments[0] == 'ping':
         message.Chat.SendMessage('Pong!')
@@ -170,6 +172,42 @@ def command(message, arguments):
             os.execv(__file__, sys.argv)
         except Exception, error:
             message.Chat.SendMessage('There was an error: %s' % error)
+            
+    elif arguments[0] == 'translate':
+        translator = Translator('JEREMY-skype-bot', 'iEvV4ZWgMjAM45Jub+WHXHHI9CZ4QJspduxTrFOXrkc=')
+        if arguments[1] == 'get-langs':
+            message.Chat.SendMessage(', '.join(sort(translator.get_languages())))
+        elif arguments[1] == 'detect':
+            langOut = arguments[2]
+            restOfMessage = arguments
+            del restOfMessage[0]
+            del restOfMessage[1]
+            del restOfMessage[2]
+            messageToTranslate = ' '.join(restOfMessage)
+            try:
+                translatedMessage = translator.translate(messageToTranslate, langOut)
+                message.Chat.SendMessage('Language detected: ' + translator.translate(messageToTranslate)
+                 + '\nLanguage to translate to: ' + langOut
+                 + '\nMessage to translate: ' + messageToTranslate
+                 + '\nTranslated message: ' + translatedMessage)
+            except Exception, error:
+                message.Chat.SendMessage('There was an error: %s' % error)
+        else:
+            langOut = arguments[2]
+            langIn = arguments[1]
+            restOfMessage = arguments
+            del restOfMessage[0]
+            del restOfMessage[1]
+            del restOfMessage[2]
+            messageToTranslate = ' '.join(restOfMessage)
+            try:
+                translatedMessage = translator.translate(messageToTranslate, langOut, langIn)
+                message.Chat.SendMessage('Language detected: ' + translator.translate(messageToTranslate)
+                 + '\nLanguage to translate to: ' + langOut
+                 + '\nMessage to translate: ' + messageToTranslate
+                 + '\nTranslated message: ' + translatedMessage)
+            except Exception, error:
+                message.Chat.SendMessage('There was an error: %s' % error)
             
     else:
         message.Chat.SendMessage('Command not recognized. Please type in ' + commandPrefix + 'help for list of commands.')
