@@ -16,6 +16,7 @@ from microsofttranslator import Translator
 # M ichael for
 # Y ou
 #
+watchedLanguage = ['poopyface', 'poopy', 'holy shy']
 
 global commandPrefix
 commandPrefix = '$'
@@ -217,12 +218,12 @@ def passiveMessages(message):
     fromChat = message.Chat
     fromUser = message.FromHandle
     fromDisplayName = message.FromDisplayName
+    for swear in watchedLanguage:
+        if swear.lower() in messageContents:
+            time.sleep(0.5)
+            message.Chat.SendMessage('Hey watch your language, ' + fromDisplayName)
 
-    if 'poopyface' in messageContents:
-        time.sleep(0.5)
-        message.Chat.SendMessage('Hey watch your language, ' + fromDisplayName)
-
-    elif messageContents == 'highfive, jeremy!':
+    if messageContents == 'highfive, jeremy!':
         time.sleep(0.5)
         message.Chat.SendMessage('/me highfives ' + fromDisplayName + ' back')
 
