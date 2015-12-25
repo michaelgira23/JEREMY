@@ -219,7 +219,7 @@ def passiveMessages(message):
     fromUser = message.FromHandle
     fromDisplayName = message.FromDisplayName
     for swear in watchedLanguage:
-        if swear.lower() in messageContents:
+        if swear in messageContents:
             time.sleep(0.5)
             message.Chat.SendMessage('Hey watch your language, ' + fromDisplayName)
 
